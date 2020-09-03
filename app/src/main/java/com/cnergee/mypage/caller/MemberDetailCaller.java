@@ -1,5 +1,6 @@
 package com.cnergee.mypage.caller;
 
+import com.cnergee.mypage.MakeMyPayment_Atom;
 import com.cnergee.mypage.MakeMyPayments;
 import com.cnergee.mypage.MakeMyPaymentsTopUp;
 import com.cnergee.mypage.MakeMyPayments_CCAvenue;
@@ -39,7 +40,11 @@ public class MemberDetailCaller extends Thread{
 					SOAP_URL, METHOD_NAME);
 			
 			MemberSoap.setAllData(isAllData());
-			
+            if(Utils.is_atom){
+                MakeMyPayment_Atom.rslt = MemberSoap.CallSearchMemberSOAP(memberid);
+                MakeMyPayment_Atom.mapMemberDetails = MemberSoap.getMapMemberDetails();
+            }
+
 			
 			if(isAllData()){
 				Profile.rslt = MemberSoap.CallSearchMemberSOAP(
@@ -48,6 +53,10 @@ public class MemberDetailCaller extends Thread{
 						.getMapMemberDetails();
 			
 			}else{
+                if(Utils.is_atom){
+                    MakeMyPayment_Atom.rslt = MemberSoap.CallSearchMemberSOAP(memberid);
+                    MakeMyPayment_Atom.mapMemberDetails = MemberSoap.getMapMemberDetails();
+                }
 				if(isTopup_flag()){
 					MakeMyPaymentsTopUp.rslt = MemberSoap.CallSearchMemberSOAP(memberid);
 					MakeMyPaymentsTopUp.mapMemberDetails= MemberSoap.getMapMemberDetails();
@@ -73,7 +82,9 @@ public class MemberDetailCaller extends Thread{
 			if(isAllData())
 			Profile.rslt = "Internet connection not available!!";
 			else{
-				
+                if(!Utils.is_atom){
+                    MakeMyPayment_Atom.rslt = "Internet connection not available!!";
+                }
 				if(isTopup_flag())
 					MakeMyPaymentsTopUp.rslt = "Internet connection not available!!";
 					else{
@@ -98,6 +109,9 @@ public class MemberDetailCaller extends Thread{
 					if(!Utils.is_CCAvenue){
 						MakeMyPayments.rslt = "Internet connection not available!!";
 						}
+                    if(!Utils.is_atom){
+                        MakeMyPayment_Atom.rslt = "Invalid web-service response.<br>"+e.toString();
+                    }
 						else{
 							MakeMyPayments_CCAvenue.rslt = "Internet connection not available!!";
 						}
@@ -114,6 +128,9 @@ public class MemberDetailCaller extends Thread{
 						if(!Utils.is_CCAvenue){
 						MakeMyPayments.rslt = "Invalid web-service response.<br>"+e.toString();
 						}
+                    if(!Utils.is_atom){
+                        MakeMyPayments.rslt = "Invalid web-service response.<br>"+e.toString();
+                    }
 						else{
 						MakeMyPayments_CCAvenue.rslt = "Invalid web-service response.<br>"+e.toString();
 						}

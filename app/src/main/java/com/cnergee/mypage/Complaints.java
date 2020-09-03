@@ -109,7 +109,7 @@ public class Complaints extends BaseActivity implements OnCancelListener {
 	//ProgressDialog mainDialog;
 	ProgressHUD mProgressHUD;
 	String CustomerCareNo = "0";
-	String DefaultCustomerCareNo = "02030030300";
+	String DefaultCustomerCareNo = "+918574412345";
 	private static boolean is_running = false;
 	LinearLayout ll_24_ol;
 	RelativeLayout btn_reset_mac, btn_logout;
@@ -606,7 +606,7 @@ public class Complaints extends BaseActivity implements OnCancelListener {
 
                 Utils utils=new Utils();
                 utils.setSharedPreferences(sharedPreferences);
-                String DefaultCustomerCareNo="02030030300";
+                String DefaultCustomerCareNo="+918574412345";
                 String	CustomerCareNo=sharedPreferences.getString("CustomerCareNo", "0");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 if(!CustomerCareNo.equalsIgnoreCase("0")&&!CustomerCareNo.equalsIgnoreCase("anyType{}"))

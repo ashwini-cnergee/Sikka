@@ -81,7 +81,7 @@
     <string name="METHOD_RENEWAL_PROCESS_TOPUP">TopUpRenewalProcess</string>
     <string name="METHOD_GET_NEW_CONN">GenralShortEnquiryForm</string>
     <string name="METHOD_GET_ADDITIONAL_AMT">GetAdditionAmountDataForMyApp</string>
-    Authe
+
     <string name="METHOD_RENEWAL_REACTIVATE_METHOD">MyAppRenewalProcess</string>
     <string name="METHOD_PING_SERVER">UpdatePhoneDetails</string>
     <string name="METHOD_GET_COMPLAINT_CATEGORY">BindComplaintCategoryMaster</string>

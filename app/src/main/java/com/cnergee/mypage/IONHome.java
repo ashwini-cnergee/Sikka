@@ -1677,7 +1677,7 @@ public class IONHome extends Activity implements OnClickListener {
 
             Utils utils=new Utils();
             utils.setSharedPreferences(sharedPreferences);
-            String DefaultCustomerCareNo="02030030300";
+            String DefaultCustomerCareNo="+918574412345";
             String	CustomerCareNo=sharedPreferences.getString("CustomerCareNo", "0");
             Intent intent = new Intent(Intent.ACTION_VIEW);
             if(!CustomerCareNo.equalsIgnoreCase("0")&&!CustomerCareNo.equalsIgnoreCase("anyType{}"))

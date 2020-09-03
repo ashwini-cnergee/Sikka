@@ -41,9 +41,9 @@ import com.cnergee.mypage.utils.AlertsBoxFactory;
 import com.cnergee.mypage.utils.FinishEvent;
 import com.cnergee.mypage.utils.Utils;
 import com.cnergee.widgets.ProgressHUD;
-import com.example.SabPaisaSDK.EDW;
-import com.example.SabPaisaSDK.PaymentResponse;
-import com.example.SabPaisaSDK.SabPaisaPG;
+import com.sabpaisa.payment.EDW;
+import com.sabpaisa.payment.callback.SabPaisaPG;
+import com.sabpaisa.payment.pojo.PaymentResponse;
 
 
 import org.json.JSONObject;
@@ -414,15 +414,17 @@ public class SubPaisaActivity extends AppCompatActivity implements OnCancelListe
     }
 
 
-    @Override
-    public void success(PaymentResponse paymentResponse) {
-        Log.d("payment response","final res"+paymentResponse);
 
+    @Override
+    public void paymentResponse(PaymentResponse paymentResponse) {
+        Log.d("payment response","final res"+paymentResponse);
     }
 
     @Override
-    public void failure(String s) {
-        Log.e("payment response",":"+s);
+    public void onError(String s) {
+        {
+            Log.e("payment response",":"+s);
+        }
     }
 
 
@@ -1186,8 +1188,8 @@ public class SubPaisaActivity extends AppCompatActivity implements OnCancelListe
                                 hm_subpaisa.put("payerEmail","josukre@cnergee.com");
                                 hm_subpaisa.put("payerAddress","Ghansoli");
 
-                                EDW edw = new EDW(hm_subpaisa, SubPaisaActivity.this);
-                                edw.initiatePayment();
+                                //EDW edw = new EDW(hm_subpaisa, SubPaisaActivity.this);
+                                EDW.initiatePayment(SubPaisaActivity.this,hm_subpaisa, SubPaisaActivity.this);
 
                             }
                         }else{

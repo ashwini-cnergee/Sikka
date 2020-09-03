@@ -6,8 +6,8 @@ android {
         applicationId "cnergee.sikka.broadband"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 16
-        versionName '2.1'
+        versionCode 18
+        versionName '2.3'//'2.1'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,7 +64,7 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation files('libs/SabPaisaSDK.aar')
+    implementation files('libs/sabpaisasdk_Ver2.aar')
 
     subprojects {
         project.configurations.all {

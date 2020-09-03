@@ -9,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
 import com.android.volley.VolleyError;
-import com.example.SabPaisaSDK.EDW;
-import com.example.SabPaisaSDK.PaymentResponse;
-import com.example.SabPaisaSDK.SabPaisaPG;
+import com.sabpaisa.payment.callback.SabPaisaPG;
+import com.sabpaisa.payment.pojo.PaymentResponse;
 
 
 import java.util.HashMap;
 
-public class SubTestActivity extends AppCompatActivity implements SabPaisaPG {
+public class SubTestActivity extends AppCompatActivity{//} implements SabPaisaPG {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class SubTestActivity extends AppCompatActivity implements SabPaisaPG {
         hm_subpaisa.put("payerEmail","josukre@cnergee.com");
         hm_subpaisa.put("payerAddress","Ghansoli");*/
 
-        HashMap<String,String> hm_subpaisa =new HashMap<>();
+      /*  HashMap<String,String> hm_subpaisa =new HashMap<>();
         hm_subpaisa.put("username","Sik35@sp");
         hm_subpaisa.put("password","UnnxB16At1");
         hm_subpaisa.put("txnId","SB010000141350SB");
@@ -57,13 +56,13 @@ public class SubTestActivity extends AppCompatActivity implements SabPaisaPG {
 
 
         EDW edw = new EDW(hm_subpaisa, SubTestActivity.this);
-        edw.initiatePayment();
+        edw.initiatePayment();*/
 
     }
 
 
 
-    @Override
+   /* @Override
     public void success(PaymentResponse paymentResponse) {
 
     }
@@ -72,4 +71,14 @@ public class SubTestActivity extends AppCompatActivity implements SabPaisaPG {
     public void failure(String s) {
 
     }
+
+    @Override
+    public void paymentResponse(PaymentResponse paymentResponse) {
+
+    }
+
+    @Override
+    public void onError(String s) {
+
+    }*/
 }

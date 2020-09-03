@@ -40,6 +40,14 @@ public class PaymentGatewayCaller extends Thread {
 					SOAP_URL, METHOD_NAME);
 			
 			adjustmentSOAP.setMemberId(getMemberId());
+            if(Utils.is_atom){
+                MakeMyPayment_Atom.rslt = adjustmentSOAP.CallAdjustmentAmountSOAP(BankName);
+                MakeMyPayment_Atom.adjTrackval = adjustmentSOAP.getServerMessage();
+            }
+            if(Utils.is_subpaisa){
+                MakePaymentSubpaisa.rslt = adjustmentSOAP.CallAdjustmentAmountSOAP(BankName);
+                MakePaymentSubpaisa.adjTrackval = adjustmentSOAP.getServerMessage();
+            }
 			if(isTopup_falg()){
 				/*if(!Utils.is_CCAvenue){
 			MakeMyPaymentsTopUp.rslt = adjustmentSOAP.CallAdjustmentAmountSOAP(BankName);
