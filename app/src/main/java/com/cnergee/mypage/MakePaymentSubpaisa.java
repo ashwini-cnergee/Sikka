@@ -44,10 +44,10 @@ import com.cnergee.mypage.utils.AlertsBoxFactory;
 import com.cnergee.mypage.utils.FinishEvent;
 import com.cnergee.mypage.utils.Utils;
 import com.cnergee.widgets.ProgressHUD;
-import com.example.SabPaisaSDK.EDW;
-import com.example.SabPaisaSDK.PaymentResponse;
-import com.example.SabPaisaSDK.SabPaisaPG;
-import com.example.SabPaisaSDK.WebviewActivity;
+import com.sabpaisa.payment.EDW;
+import com.sabpaisa.payment.callback.SabPaisaPG;
+import com.sabpaisa.payment.pojo.PaymentResponse;
+
 
 import org.json.JSONObject;
 
@@ -65,7 +65,7 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
     TextView txtloginid, txtemailid, txtcontactno, txtnewpackagename, txtnewamount, txtnewvalidity, tvDiscountLabel;
 
     String SabPaisaTxId,firstName,lastName,payMode,email,mobileNo,transDate,orgTxnAmount,
-            spAmount,spPaymentid,spRespStatus,amount,spRespCode,pgRespCode,PGTxnNo,issuerRefNo,reMsg,clientTxnId,res_status,clientCode,password,
+            spTrackId,spAmount,spPaymentid,spRespStatus,amount,spRespCode,pgRespCode,PGTxnNo,issuerRefNo,reMsg,clientTxnId,res_status,clientCode,password,
             payerAddress,payerContact,payerEmail,payerFirstName,payerLastName,txnAmt,URLfailure,URLsuccess,username,
             key,iv,authIV,authKey;
 
@@ -791,7 +791,6 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                                 URLsuccess = tableJson.getString("URLsuccess");
                                 username = tableJson.getString("username");
 
-
                                 key =authKey;
                                 iv=authIV;
                             }
@@ -807,17 +806,24 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
 
                                 HashMap<String,String> hm_subpaisa =new HashMap<>();
 
-
                                 hm_subpaisa.put("txnAmt",txnAmt);
                                 hm_subpaisa.put("payerFirstName",payerFirstName);
                                 hm_subpaisa.put("payerLastName",payerLastName);
                                 hm_subpaisa.put("payerContact",payerContact);
                                 hm_subpaisa.put("payerEmail",payerEmail);
                                 hm_subpaisa.put("payerAddress",payerAddress);
+                                hm_subpaisa.put("authKey",authKey);
+                                hm_subpaisa.put("authIV",authIV);
+                                hm_subpaisa.put("clientCode",clientCode);
+                                hm_subpaisa.put("txnId",TrackId);
+                               hm_subpaisa.put("URLsuccess","http://150.129.48.28:8005/PaymentGateWay/SabPaisa/PaymentStatusTransMobile.aspx");
+                               hm_subpaisa.put("URLfailure","http://150.129.48.28:8005/PaymentGateWay/SabPaisa/PaymentStatusTransMobile.aspx");
+                               hm_subpaisa.put("spHitUrl","https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit");
+                               hm_subpaisa.put("username",username);
+                               hm_subpaisa.put("password",password);
 
-                                EDW edw = new EDW(hm_subpaisa, MakePaymentSubpaisa.this);
-                                edw.initiatePayment();
-
+                               //EDW edw = new EDW(MakePaymentSubpaisa.this,hm_subpaisa, MakePaymentSubpaisa.this);
+                                EDW.initiatePayment(MakePaymentSubpaisa.this,hm_subpaisa,MakePaymentSubpaisa.this);
                             }
                         }else{
                             AlertsBoxFactory.showAlert("We are unable to initiate Payment.", MakePaymentSubpaisa.this);
@@ -855,10 +861,10 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
         }
     }
 
-
     @Override
-    public void success(PaymentResponse paymentResponse) {
+    public void paymentResponse(PaymentResponse paymentResponse) {
         System.out.println("---------->"+paymentResponse.getSabPaisaTxId() +"------>" +paymentResponse.getSpRespCode());
+        Log.d("Response from subpaisa","-->"+paymentResponse);
         paymentsObj = new PaymentsObj();
         spRespCode = ( checkNullOrNot(paymentResponse.getSpRespCode()));
         SabPaisaTxId = checkNullOrNot(paymentResponse.getSabPaisaTxId());
@@ -866,6 +872,7 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
         spPaymentid = checkNullOrNot(paymentResponse.getSabPaisaTxId());
         spAmount = checkNullOrNot(paymentResponse.getAmount());
         orgTxnAmount = checkNullOrNot(paymentResponse.getOrgTxnAmount());
+        clientTxnId = checkNullOrNot(paymentResponse.getClientTxnId());
 
         if(spRespCode.equals("0000")){
             reMsg = "Transaction Successful.";
@@ -878,8 +885,6 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
         }
 
 
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             new InsertAfterPayemnt().executeOnExecutor(
                     AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
@@ -889,20 +894,18 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
             Utils.log("InsertPayment", "Insert Pay executed");
         }
 
-
-
-
     }
+
+    @Override
+    public void onError(String s) {
+        System.out.println("---------->"+s);
+    }
+
     private String checkNullOrNot(String string){
         if(TextUtils.isEmpty(string)){
             return "";
         }
         return string;
-    }
-    @Override
-    public void failure(String s) {
-        System.out.println("---------->"+s);
-
     }
 
 
@@ -984,6 +987,7 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                     Intent intent = new Intent(MakePaymentSubpaisa.this, SubpaisaResponse.class);
                     intent.putExtra("spRespStatus", spRespCode);
                     intent.putExtra("SabPaisaTxId", SabPaisaTxId);
+                    intent.putExtra("clientTxnId",clientTxnId);
                     intent.putExtra("spPaymentid",spPaymentid);
                     intent.putExtra("transmsg",reMsg);
                     intent.putExtra("spAmount", spAmount);
@@ -1022,12 +1026,11 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                 Utils.log("Payment TransactionId", "" + paymentsObj.getTrackId());
                 Utils.log("Payment TXId", "" + paymentsObj.getTxId());
                 paymentsObj.setAuthIdCode(authIV);
-                paymentsObj.setTxId(adjTrackval);
+                paymentsObj.setTxId(TrackId);
                 paymentsObj.setTxStatus(spRespStatus);
                 paymentsObj.setPgTxnNo(spPaymentid);
                 paymentsObj.setIssuerRefNo(spPaymentid);
                 paymentsObj.setTxMsg(spRespStatus);
-
                 caller.setPaymentdata(paymentsObj);
 
                 caller.join();
@@ -1087,6 +1090,7 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                 Intent intent = new Intent(MakePaymentSubpaisa.this, SubpaisaResponse.class);
                 intent.putExtra("spRespStatus", spRespCode);
                 intent.putExtra("SabPaisaTxId", SabPaisaTxId);
+                intent.putExtra("clientTxnId",clientTxnId);
                 intent.putExtra("spPaymentid",spPaymentid);
                 intent.putExtra("transmsg",reMsg);
                 intent.putExtra("spAmount", spAmount);
@@ -1120,9 +1124,9 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                 paymentsObj.setMobileNumber(utils.getMobileNoPrimary());
                 paymentsObj.setSubscriberID(utils.getMemberLoginID());
                 paymentsObj.setPlanName(txtnewpackagename.getText().toString());
-                paymentsObj.setPaidAmount(Double.parseDouble(additionalAmount
-                        .getFinalcharges()));
-                paymentsObj.setTrackId(clientTxnId);
+                paymentsObj.setPaidAmount(Double.parseDouble(additionalAmount.getFinalcharges()));
+               // paymentsObj.setTrackId(clientTxnId);
+                paymentsObj.setTrackId(TrackId);
                 paymentsObj.setIsChangePlan(Changepack);
                 paymentsObj.setActionType(UpdateFrom);
                 paymentsObj.setPaymentId(spPaymentid);

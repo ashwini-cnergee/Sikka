@@ -18,7 +18,7 @@ import cnergee.sikka.broadband.R;
 public class SubpaisaResponse extends Activity {
     TextView mTranscationIdOrderId, mTextMessage, mTxRefNo, mPgTxnNo,
             mTxStatus,txrefno;
-    String type ,id,transmsg,status,amount,orgTxnAmount,Trackid;
+    String type ,id,transmsg,status,amount,orgTxnAmount,Trackid,clientTxnId;
 
 
     @Override
@@ -41,11 +41,12 @@ public class SubpaisaResponse extends Activity {
         orgTxnAmount = i.getStringExtra("orgTxnAmount");
         Trackid = i.getStringExtra("Trackid");
         transmsg = i.getStringExtra("transmsg");
+        clientTxnId= i.getStringExtra("clientTxnId");
 
 
         mTranscationIdOrderId.setText("Transaction Number: "+Trackid+" |  Order Amount: "+ amount+" "+" INR");
         mTextMessage.setText(transmsg);
-        txrefno.setText(Trackid);
+        txrefno.setText(clientTxnId);
         mTxRefNo.setText(id);
         mTxStatus.setText(transmsg);
     }
