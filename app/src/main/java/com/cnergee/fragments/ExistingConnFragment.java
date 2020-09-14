@@ -201,6 +201,9 @@ public class ExistingConnFragment extends Fragment {
 
 						getMemberDetailWebService = new GetMemberDetailWebService();
 						getMemberDetailWebService.execute();
+					}else if (getAuthcount.equals("0")){
+						Toast.makeText(getActivity(),"Please enter your registered mobile number.",
+								Toast.LENGTH_LONG).show();
 					}
 					else
 					{
