@@ -528,6 +528,7 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                 paymentsObj.setServiceTax(ServiceTax);
                 paymentsObj.setDiscount_Amount(additionalAmount.getDiscountAmount());
                 paymentsObj.setBankcode("AT");
+                paymentsObj.setRenewaltype(UpdateFrom);
 
 
                 if(Utils.pg_sms_request){

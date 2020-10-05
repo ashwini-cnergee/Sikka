@@ -1442,7 +1442,7 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                         getApplicationContext().getResources().getString(
                                 R.string.WSDL_TARGET_NAMESPACE),
                         getApplicationContext().getResources().getString(R.string.SOAP_URL), getApplicationContext()
-                        .getResources().getString(R.string.METHOD_BEFORE_MEMBER_PAYMENTS_NEW), true);
+                        .getResources().getString(R.string.METHOD_BEFORE_MEMBER_PAY_WITH_TRACKID), true);
 
                 paymentsObj.setMemberId(Long.valueOf(utils.getMemberId()));
                 paymentsObj.setTrackId(TrackId);
@@ -1450,6 +1450,9 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                 paymentsObj.setPackageName(txtnewpackagename.getText().toString());
                 paymentsObj.setServiceTax(ServiceTax);
                 paymentsObj.setDiscount_Amount(additionalAmount.getDiscountAmount());
+                paymentsObj.setBankcode("CA");
+                paymentsObj.setRenewaltype(UpdateFrom);
+
                 if (Utils.pg_sms_request) {
                     if (Utils.pg_sms_uniqueid.length() > 0) {
                         paymentsObj.setPg_sms_unique_id(Utils.pg_sms_uniqueid);

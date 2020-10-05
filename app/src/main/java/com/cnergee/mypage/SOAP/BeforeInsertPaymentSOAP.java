@@ -57,25 +57,43 @@ public class BeforeInsertPaymentSOAP {
 		Log.i(" SOAP_ACTION ", WSDL_TARGET_NAMESPACE + METHOD_NAME);
 		Log.i(" searchTxt ", searchTxt);*/
 		//Log.i("#####################", "");
-		
-		
-		
-		
+
+
+
+
 		PropertyInfo pi = new PropertyInfo();
 		pi.setName("MemberId");
 		pi.setValue(getPaymentdata().getMemberId());
 		pi.setType(long.class);
 		request.addProperty(pi);
-		
+
+//        pi = new PropertyInfo();
+//        pi.setName("TrackId");
+//        pi.setValue(getPaymentdata().getTrackId());
+//        pi.setType(String.class);
+//        request.addProperty(pi);
+
 		pi = new PropertyInfo();
-		pi.setName("TrackId");
-		pi.setValue(getPaymentdata().getTrackId());
+		pi.setName("BankCode");
+		pi.setValue(getPaymentdata().getBankcode());
 		pi.setType(String.class);
 		request.addProperty(pi);
-		
+
 		pi = new PropertyInfo();
 		pi.setName("Amount");
 		pi.setValue(getPaymentdata().getAmount());
+		pi.setType(String.class);
+		request.addProperty(pi);
+
+		pi = new PropertyInfo();
+		pi.setName("PackageName");
+		pi.setValue(getPaymentdata().getPackageName());
+		pi.setType(String.class);
+		request.addProperty(pi);
+
+		pi = new PropertyInfo();
+		pi.setName("ServiceTax");
+		pi.setValue(getPaymentdata().getServiceTax());
 		pi.setType(String.class);
 		request.addProperty(pi);
 
@@ -85,19 +103,11 @@ public class BeforeInsertPaymentSOAP {
 		pi.setType(String.class);
 		request.addProperty(pi);
 
-
 		pi = new PropertyInfo();
-		pi.setName("PackageName");
-		pi.setValue(getPaymentdata().getPackageName());
+		pi.setName(AuthenticationMobile.CliectAccessName);
+		pi.setValue(AuthenticationMobile.CliectAccessId);
 		pi.setType(String.class);
 		request.addProperty(pi);
-		
-		pi = new PropertyInfo();
-		pi.setName("ServiceTax");
-		pi.setValue(getPaymentdata().getServiceTax());
-		pi.setType(String.class);
-		request.addProperty(pi);
-
 
 		pi = new PropertyInfo();
 		pi.setName("PGUniqueId");
@@ -106,8 +116,14 @@ public class BeforeInsertPaymentSOAP {
 		request.addProperty(pi);
 
 		pi = new PropertyInfo();
-		pi.setName(AuthenticationMobile.CliectAccessName);
-		pi.setValue(AuthenticationMobile.CliectAccessId);
+		pi.setName("IsPhoneRenewal");
+		pi.setValue(getPaymentdata().getIs_renew());
+		pi.setType(String.class);
+		request.addProperty(pi);
+
+		pi = new PropertyInfo();
+		pi.setName("RenewalType");
+		pi.setValue(getPaymentdata().getRenewaltype());
 		pi.setType(String.class);
 		request.addProperty(pi);
 
