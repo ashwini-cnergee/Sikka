@@ -788,7 +788,7 @@ public class UpdateProfile extends Activity {
 			
 			
 			
-		dialog.show();
+			dialog.show();
 			Calendar calendar = Calendar.getInstance();
 			int curMonth = calendar.get(Calendar.MONTH);
 			 months = new String[] { "January", "February", "March",
@@ -976,7 +976,6 @@ public class UpdateProfile extends Activity {
 			Utils.log("On Post ","On Post Executed");
 			mProgressHUD.dismiss();
 			try {
-				
 			Utils.log(TAG+"Result :",""+UpProfileResult);
 			Utils.log(TAG+"Response : ",""+Upresponse);
 			
@@ -1059,23 +1058,16 @@ public class UpdateProfile extends Activity {
 							editor.putString("DateofBirth",dob.getText().toString());
 							editor.commit();
 							dob.setText(print_Dob);
-							
-							
+
 						}
-							
-							
-							
+
 							}
-						
-						
-						
+
 							}
 							
 						}
 					}
-					
 
-			
 				if (rslt.trim().equalsIgnoreCase("ok")) {
 
 					if (mapMemberDetails != null) {
