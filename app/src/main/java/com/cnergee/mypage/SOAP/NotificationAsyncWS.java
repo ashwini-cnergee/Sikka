@@ -34,7 +34,6 @@ import java.util.Random;
 
 import cnergee.sikka.broadband.R;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class NotificationAsyncWS extends AsyncTask<Void, Void, Void>{
 	private String TAG ="NotificationAsyncWS";
 	private Context context;
@@ -62,7 +61,7 @@ public class NotificationAsyncWS extends AsyncTask<Void, Void, Void>{
 
 		//Log.i(TAG, "doInBackground");
         try {
-        	Utils utils= new Utils();
+//        	Utils utils= new Utils();
         	//if(utils.isOnline(context))
 			getNotificationData();
 			//updatenotification();

@@ -1,5 +1,6 @@
 package com.cnergee.mypage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -114,7 +115,6 @@ public class MakeMyPaymentsAtom extends Activity {
 
     private static final int ACTION_WEB_VIEW = 111;
     private String customername;
-    String TrackId;
     Button btnnb;
     Address address;
     ExtraParams extraParam;
@@ -122,7 +122,7 @@ public class MakeMyPaymentsAtom extends Activity {
     Customer customer;
     public boolean isDetailShow = false;
     // String address;
-    public static String adjTrackval = "";
+    public static String adjTrackval,TrackId;
     public static String HMACSignature = "";
     private Map<String, String> response;
     private LayoutParams MATCH_WRAP_LAYOUT = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -143,6 +143,8 @@ public class MakeMyPaymentsAtom extends Activity {
     TextView tvClickDetails;
     LinearLayout ll_addtional_details, llClickDetails;
     String type = "Renew";
+    public boolean is_member_details = false, is_activity_running = false, trackid_check = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,28 +318,7 @@ public class MakeMyPaymentsAtom extends Activity {
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             atomsignature = new GetAtomSignatureLive();
 			atomsignature.execute();*/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 
-            getpaymentgatewaysdetails = new PaymentGateWayDetails();
-            getpaymentgatewaysdetails.execute((String) null);
-        /*getpaymentgatewaysdetails = new PaymentGateWayDetails();
-        getpaymentgatewaysdetails.executeOnExecutor(
-				AsyncTask.THREAD_POOL_EXECUTOR, (String) null);*/
-
-		
-			/*GetCitrusCOnstantWebService = new GetCitrusCOnstantWebService();
-
-			GetCitrusCOnstantWebService.executeOnExecutor(
-					AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-*/
-        } else {
-            getpaymentgatewaysdetails = new PaymentGateWayDetails();
-            getpaymentgatewaysdetails.execute((String) null);
-
-			
-			/*GetCitrusCOnstantWebService = new GetCitrusCOnstantWebService();
-            GetCitrusCOnstantWebService.execute((String) null);*/
-        }
 
         payNowView.setVisibility(View.VISIBLE);
         responseScrollLayout.setVisibility(View.GONE);
@@ -346,174 +327,76 @@ public class MakeMyPaymentsAtom extends Activity {
 		
 		
 		
-		/*btnnb.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-				if (Double.parseDouble(txtnewamount.getText().toString()) > 0) {
-					if (terms.isChecked() == true
-							&& privacy.isChecked() == true) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-							new InsertBeforePayemnt().executeOnExecutor(
-									AsyncTask.THREAD_POOL_EXECUTOR,
-									(String) null);
-						}else{
-						new InsertBeforePayemnt().execute((String) null);
-						
-						}
-							if (atom_error.equalsIgnoreCase("1")) {
-								
-								showExitAlert(" We are facing some Technical problem Please Try Again !!!", MakeMyPaymentsAtom.this);
-								
-							}
-							else{
-								
-								
-								Utils.log("MakeMyPayment ","is Finished");
-								Utils.log("Intent MakeAtom","frm 1 st");
-							Intent i = new Intent(MakeMyPaymentsAtom.this,WebView_AtomPayments.class);
-							i.putExtra("returnUrl",atom_url);
-							i.putExtra("trackId",atom_track_id);
-							i.putExtra("Error",atom_error);
-							i.putExtra("AccessCode", atom_acces_code);
-							i.putExtra(AvenuesParams.ACCESS_CODE, atom_acces_code);
-							//i.putExtra(AvenuesParams.ENC_VAL, cca_enc_req);
-							//i.putExtra(AvenuesParams.MERCHANT_ID, );
-							//i.putExtra(AvenuesParams.WORKING_KEY, cca_working_key);
-							i.putExtra(AvenuesParams.AMOUNT, txtnewamount.getText().toString());
-							i.putExtra("TrackId", TrackId);					
-							//i.putExtra(AvenuesParams.CCA_REQUEST, cca_request);
-							Utils.log("Additional amount",""+additionalAmount);
-							
-							i.putExtra("additional_amount", additionalAmount);
-							//i.putExtra("additional_amount", additionalAmount.getAdditionalAmount());
-							i.putExtra("Changepack", Changepack);
-							i.putExtra("UpdateFrom", UpdateFrom);
-							i.putExtra("PackageName", txtnewpackagename.getText().toString());
-							
-							
-							Utils.log("mMakeAmount",""+additionalAmount.getFinalcharges());
-							Utils.log("mMakewmyAmount",""+additionalAmount.getAdditionalAmount());
-							Utils.log("MakeMyPayment",""+additionalAmount.getPackageRate());
-							Utils.log("MakeMy amount",""+additionalAmount.toString());
-							Utils.log("atomAmount",""+additionalAmount);
-							Utils.log("Additionalp Amount",""+additionalAmount);
-							startActivity(i);
-							
-							
-						
-							Utils.log(""+TAG,"Atom details");
-							Utils.log("AtomIntetnURL",""+atom_url);
-							Utils.log("AtomIntentAccessCode",""+atom_acces_code);
-							Utils.log("AtomIntenterror", ""+atom_error);
-							Utils.log("AtomIntentTrackId",""+atom_track_id);
-							Utils.log("AdditionalIntentAmount",""+additionalAmount.getAdditionalAmount());
-							
-							startActivity(i);
-							
-							
-							}
-							//	citrussignature = new GetCitrusSignature();
-							atomsignature = new GetAtomSignatureLive();
-							atomsignature.execute();
-							
-							citrussignature.executeOnExecutor(
-									AsyncTask.THREAD_POOL_EXECUTOR,
-									(String) null);
-						} else {
-							
-							
-							Utils.log("Intent MakeAtom","frm 2 st");
-							new InsertBeforePayemnt().execute((String) null);
-							Intent i = new Intent(MakeMyPaymentsAtom.this,WebView_AtomPayments.class);
-							i.putExtra("returnUrl",atom_url);
-							i.putExtra("trackId",atom_track_id);
-							i.putExtra("Error",atom_error);
-							i.putExtra("AccessCode", atom_acces_code);
-							
-							Utils.log("AtomIntetnURL",""+atom_url);
-							Utils.log("AtomIntentAccessCode",""+atom_acces_code);
-							Utils.log("AtomIntenterror", ""+atom_error);
-							Utils.log("AtomIntentTrackId",""+atom_track_id);
-						
-							startActivity(i);
-							
-							
-							citrussignature = new GetCitrusSignature();
-							citrussignature.execute((String) null);
-						}
-					} else {
-						Toast.makeText(MakeMyPaymentsAtom.this,
-								"Please accept the terms and condition",
-								Toast.LENGTH_LONG).show();
-						return;
 
-					}
-
-				} else {
-					AlertsBoxFactory
-							.showAlert(
-									"Due to some data mismatch we are unable to process your request\n Please contact admin",
-									MakeMyPaymentsAtom.this);
-				}
-
-			}
-		});*/
 
 
         btnnb.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
 
-                utils.getEmailId().toString();
+                try {
+                    if (Double.parseDouble(txtnewamount.getText().toString()) > 0) {
+                        if (terms.isChecked() == true
+                                && privacy.isChecked() == true) {
 
-                if (Double.parseDouble(txtnewamount.getText().toString()) > 0) {
-                    if (terms.isChecked() == true && privacy.isChecked() == true) {
+                            if (Utils.isOnline(MakeMyPaymentsAtom.this)) {
+                                if (trackid_check) {
+                                    is_member_details = false;
+                                    // TrackId Generated Successfully.
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                                        new InsertBeforePayemnt().executeOnExecutor(
+                                                AsyncTask.THREAD_POOL_EXECUTOR,
+                                                (String) null);
+                                    } else {
+                                        new InsertBeforePayemnt().execute((String) null);
+                                    }
+                                } else {
+                                    // TrackId Failed to Generate.
+                                    is_member_details = true;
+                                    if (Utils.isOnline(MakeMyPaymentsAtom.this)) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                                            getpaymentgatewaysdetails = new PaymentGateWayDetails();
+                                            getpaymentgatewaysdetails.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
 
-                        //atom_error ="1";
+                                        } else {
 
-                        if (atom_error.equalsIgnoreCase("1")) {
-                            if (utils.EmailId == null) {
-                                showExitAlert("Please Update your EmailId from Update Profile.", MakeMyPaymentsAtom.this);
+                                            getpaymentgatewaysdetails = new PaymentGateWayDetails();
+                                            getpaymentgatewaysdetails.execute((String) null);
+                                        }
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(MakeMyPaymentsAtom.this,
+                                        getString(R.string.app_please_wait_label),
+                                        Toast.LENGTH_LONG).show();
+
+
                             }
-                            showExitAlert("We are facing some technical problem. Please Try Again !!!", MakeMyPaymentsAtom.this);
+
 
                         } else {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                new InsertBeforePayemnt().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-                            } else {
-                                new InsertBeforePayemnt().execute((String) null);
-                            }
+                            Toast.makeText(MakeMyPaymentsAtom.this,
+                                    "Please accept the terms and condition",
+                                    Toast.LENGTH_LONG).show();
+                            return;
 
-                            Intent i = new Intent(MakeMyPaymentsAtom.this, WebView_AtomPayments.class);
-                            i.putExtra("returnUrl", atom_url);
-                            i.putExtra("trackId", atom_track_id);
-                            i.putExtra("Error", atom_error);
-                            i.putExtra("AccessCode", atom_acces_code);
-                            i.putExtra(AvenuesParams.ACCESS_CODE, atom_acces_code);
-                            i.putExtra(AvenuesParams.AMOUNT, txtnewamount.getText().toString());
-                            i.putExtra("TrackId", TrackId);
-                            i.putExtra("additional_amount", additionalAmount);
-                            i.putExtra("Changepack", Changepack);
-                            i.putExtra("UpdateFrom", UpdateFrom);
-                            i.putExtra("PackageName", txtnewpackagename.getText().toString());
-                            startActivity(i);
                         }
 
-
                     } else {
-                        Toast.makeText(MakeMyPaymentsAtom.this,
-                                "Please accept the terms and condition",
-                                Toast.LENGTH_LONG).show();
-                        return;
-
+                        if (is_activity_running)
+                            AlertsBoxFactory
+                                    .showAlert(
+                                            "Due to some data mismatch we are unable to process your request\n Please contact admin",
+                                            MakeMyPaymentsAtom.this);
                     }
-
-                } else {
-                    AlertsBoxFactory
-                            .showAlert(
-                                    "Due to some data mismatch we are unable to process your request\n Please contact admin",
-                                    MakeMyPaymentsAtom.this);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    if (is_activity_running)
+                        AlertsBoxFactory
+                                .showAlert(
+                                        "Due to some data mismatch we are unable to process your request\n Please contact admin",
+                                        MakeMyPaymentsAtom.this);
                 }
-
             }
         });
 
@@ -879,8 +762,6 @@ public class MakeMyPaymentsAtom extends Activity {
                         // " " + memberDetails.getInstLocAddressLine2();
                         customername = memberDetails.getMemberName();
 
-                        getpaymentgatewaysdetails = new PaymentGateWayDetails();
-                        getpaymentgatewaysdetails.execute((String) null);
 
                     }
                 } else if (rslt.trim().equalsIgnoreCase("not")) {
@@ -944,49 +825,60 @@ public class MakeMyPaymentsAtom extends Activity {
         ProgressHUD mProgressHUD;
 
         protected void onPreExecute() {
+            if (is_activity_running)
+                mProgressHUD = ProgressHUD
+                        .show(MakeMyPaymentsAtom.this,
+                                getString(R.string.app_please_wait_label), true,
+                                true, this);
+            Utils.log("2 Progress", "start");
+            Utils.log("Atom", ":" + Utils.is_atom);
 
-            mProgressHUD = ProgressHUD
-                    .show(MakeMyPaymentsAtom.this,
-                            getString(R.string.app_please_wait_label), true,
-                            true, this);
-            Utils.log("3 Progress", "start");
+
         }
 
         @Override
         protected void onCancelled() {
-            mProgressHUD.dismiss();
+            if (is_activity_running)
+                mProgressHUD.dismiss();
+
             getpaymentgatewaysdetails = null;
 
         }
 
         protected void onPostExecute(Void unused) {
-            Utils.log("3 Progress", "end");
-            mProgressHUD.dismiss();
+            Utils.log("2 Progress", "end");
+
+            if (is_activity_running) mProgressHUD.dismiss();
             getpaymentgatewaysdetails = null;
 
             if (rslt.trim().equalsIgnoreCase("ok")) {
                 try {
                     TrackId = adjTrackval;
-                    Utils.log("TrackID", ":" + TrackId);
-                    if (TrackId != null) {
-                        atomsignature = new GetAtomSignatureLive();
-                        atomsignature.execute();
-                    } else {
-                        Utils.log("Track Id ", "Track NUll");
 
+                    Utils.log("TrackId", ":" + TrackId);
+                    if (TrackId.length() > 0) {
+                        trackid_check = true;
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            new InsertBeforePayemnt().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+                        } else {
+                            new InsertBeforePayemnt().execute((String) null);
+                        }
                     }
 
                     // Log.i(">>>>TrackId<<<<", TrackId);
+                    Utils.log("trackid_check", ":" + trackid_check);
+                    if (is_member_details) {
+
+                    }
                 } catch (NumberFormatException nue) {
                     RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioPayMode);
                     radioGroup.clearCheck();
                     // Log.i(">>>>>New PLan Rate<<<<<<", adjTrackval);
-
                 }
 
             } else {
-                AlertsBoxFactory.showAlert("Invalid web-service response "
-                        + rslt, context);
+
             }
             this.cancel(true);
         }
@@ -1019,10 +911,10 @@ public class MakeMyPaymentsAtom extends Activity {
                 }
 
             } catch (Exception e) {
-				/*
-				 * AlertsBoxFactory.showErrorAlert("Error web-service response "
-				 * + e.toString(), context);
-				 */
+                /*
+                 * AlertsBoxFactory.showErrorAlert("Error web-service response "
+                 * + e.toString(), context);
+                 */
             }
             return null;
         }
@@ -1030,8 +922,8 @@ public class MakeMyPaymentsAtom extends Activity {
         @Override
         public void onCancel(DialogInterface dialog) {
             // TODO Auto-generated method stub
-            mProgressHUD.dismiss();
-
+            if (is_activity_running)
+                mProgressHUD.dismiss();
         }
 
     }
@@ -1079,10 +971,19 @@ public class MakeMyPaymentsAtom extends Activity {
                                 atom_error = tableJson.getString("IsError");
                                 atom_track_id = tableJson.getString("TrackId");
 
-                                Utils.log("Atom URL", "" + atom_url);
-                                Utils.log("Atom AccessCode", "" + atom_acces_code);
-                                Utils.log("Atom error", "" + atom_error);
-                                Utils.log("Atom TrackId", "" + atom_track_id);
+                                Intent i = new Intent(MakeMyPaymentsAtom.this, WebView_AtomPayments.class);
+                                i.putExtra("returnUrl", atom_url);
+                                i.putExtra("trackId", atom_track_id);
+                                i.putExtra("Error", atom_error);
+                                i.putExtra("AccessCode", atom_acces_code);
+                                i.putExtra(AvenuesParams.ACCESS_CODE, atom_acces_code);
+                                i.putExtra(AvenuesParams.AMOUNT, txtnewamount.getText().toString());
+                                i.putExtra("TrackId", TrackId);
+                                i.putExtra("additional_amount", additionalAmount);
+                                i.putExtra("Changepack", Changepack);
+                                i.putExtra("UpdateFrom", UpdateFrom);
+                                i.putExtra("PackageName", txtnewpackagename.getText().toString());
+                                startActivity(i);
                             }
 
                         } else {
@@ -1158,8 +1059,7 @@ public class MakeMyPaymentsAtom extends Activity {
                     // Log.i(" >>>> "," ********* GO FOR OTHER WS *************** ");
                     // Log.i(" >>>> "," ********* GO FOR OTHER WS *************** "+GetSignature);
 
-                    // InsertBeforePayemnt = new InsertBeforePayemnt();
-                    // InsertBeforePayemnt.execute((String) null);
+
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                         new GetAllDetailsAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
@@ -1299,49 +1199,51 @@ public class MakeMyPaymentsAtom extends Activity {
     private class InsertBeforePayemnt extends AsyncTask<String, Void, Void>
             implements OnCancelListener {
 
-        //ProgressHUD mProgressHUD12;
+        ProgressHUD mProgressHUD;
         PaymentsObj paymentsObj = new PaymentsObj();
 
         protected void onPreExecute() {
-
-			/*if(mProgressHUD12==null){
-				mProgressHUD12 = ProgressHUD
-					.show(MakeMyPaymentsAtom.this,
-							getString(R.string.app_please_wait_label), true,
-							true, this);
-			}*/
+            Utils.log("3 Progress", "start");
+            if (is_activity_running)
+                mProgressHUD = ProgressHUD
+                        .show(MakeMyPaymentsAtom.this,
+                                getString(R.string.app_please_wait_label), true,
+                                true, this);
 
         }
 
         @Override
         protected void onCancelled() {
-			/*if(mProgressHUD12!=null){
-				if(mProgressHUD12.isShowing())
-					mProgressHUD12.dismiss();
-			}*/
-
+            if (is_activity_running)
+                mProgressHUD.dismiss();
+            InsertBeforePayemnt = null;
             // submit.setClickable(true);
         }
 
         protected void onPostExecute(Void unused) {
-			/*if(mProgressHUD12!=null){
-				if(mProgressHUD12.isShowing())
-					mProgressHUD12.dismiss();
-			}*/
+            if (is_activity_running)
+                mProgressHUD.dismiss();
+            Utils.log("3 Progress", "end");
+            Utils.log("Response", ":" + rslt);
             // submit.setClickable(true);
-
+            InsertBeforePayemnt = null;
 
             if (rslt.trim().equalsIgnoreCase("ok")) {
-			/*	getsignaturefrommerchant = new GetSignatureFromMerchantServer(
-						nameValuePairs);
-				getsignaturefrommerchant.execute();*/
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    new GetAtomSignatureLive().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+                } else {
+                    new GetAtomSignatureLive().execute();
+                }
 
             } else {
-                AlertsBoxFactory.showAlert(rslt, context);
+                if (is_activity_running)
+                    AlertsBoxFactory.showAlert(rslt, context);
                 return;
             }
         }
 
+        @SuppressLint("WrongThread")
         @Override
         protected Void doInBackground(String... params) {
             try {
@@ -1351,17 +1253,17 @@ public class MakeMyPaymentsAtom extends Activity {
                 BeforePaymentInsertCaller caller = new BeforePaymentInsertCaller(
                         getApplicationContext().getResources().getString(
                                 R.string.WSDL_TARGET_NAMESPACE),
-                        getApplicationContext().getResources().getString(
-                                R.string.SOAP_URL), getApplicationContext()
-                        .getResources().getString(
-                                R.string.METHOD_BEFORE_MEMBER_PAYMENTS), true);
+                        getApplicationContext().getResources().getString(R.string.SOAP_URL), getApplicationContext()
+                        .getResources().getString(R.string.METHOD_BEFORE_MEMBER_PAYMENTS_NEW), true);
 
                 paymentsObj.setMemberId(Long.valueOf(utils.getMemberId()));
-                paymentsObj.setTrackId(TrackId);
+                paymentsObj.setTrackId(adjTrackval);
                 paymentsObj.setAmount(txtnewamount.getText().toString().trim());
                 paymentsObj.setPackageName(txtnewpackagename.getText().toString());
                 paymentsObj.setServiceTax(ServiceTax);
                 paymentsObj.setDiscount_Amount(additionalAmount.getDiscountAmount());
+                paymentsObj.setRenewaltype(UpdateFrom);
+
                 if (Utils.pg_sms_request) {
                     if (Utils.pg_sms_uniqueid.length() > 0) {
                         paymentsObj.setPg_sms_unique_id(Utils.pg_sms_uniqueid);
@@ -1371,8 +1273,6 @@ public class MakeMyPaymentsAtom extends Activity {
                 } else {
                     paymentsObj.setPg_sms_unique_id(null);
                 }
-
-
                 caller.setPaymentdata(paymentsObj);
 
                 caller.join();
@@ -1387,7 +1287,7 @@ public class MakeMyPaymentsAtom extends Activity {
                 }
 
             } catch (Exception e) {
-				/* AlertsBoxFactory.showAlert(rslt,context ); */
+                /* AlertsBoxFactory.showAlert(rslt,context ); */
             }
             return null;
         }
@@ -1395,12 +1295,10 @@ public class MakeMyPaymentsAtom extends Activity {
         @Override
         public void onCancel(DialogInterface dialog) {
             // TODO Auto-generated method stub
-
-			/*if(mProgressHUD12!=null){
-				if(mProgressHUD12.isShowing())
-					mProgressHUD12.dismiss();
-			}*/
+            if (is_activity_running)
+                mProgressHUD.dismiss();
         }
+
     }
 
 	/* Insert Before Going to Payment Gateway */
@@ -1817,11 +1715,7 @@ public class MakeMyPaymentsAtom extends Activity {
             super.onPostExecute(result);
 
             mProgressHUD.dismiss();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                new InsertBeforePayemnt().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-            } else {
-                new InsertBeforePayemnt().execute((String) null);
-            }
+
         }
 
         @Override

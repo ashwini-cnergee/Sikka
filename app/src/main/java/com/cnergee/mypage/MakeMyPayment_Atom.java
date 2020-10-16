@@ -76,7 +76,7 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
     String TrackId;
     private InsertBeforeWithTrackId insertBeforeWithTrackId =null;
 
-    public static String adjTrackval = "";
+    public static String adjTrackval ;
     public static String responseMsg = ""; public static String rslt = "";
     public static Map<String, MemberDetailsObj> mapMemberDetails;
     private String customername, Email_id;
@@ -137,105 +137,20 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
 
         btnnb.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                try{
+                try {
+
                     if (Double.parseDouble(txtnewamount.getText().toString()) > 0) {
                         if (terms.isChecked() == true
                                 && privacy.isChecked() == true) {
 
-                            if(Utils.isOnline(MakeMyPayment_Atom.this)){
-                                /*if(trackid_check){
-                                    is_member_details=false;
+                            if (Utils.isOnline(MakeMyPayment_Atom.this)) {
+                                if (trackid_check) {
+                                    is_member_details = false;
                                     // TrackId Generated Successfully.
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                                         new InsertBeforePayemnt().executeOnExecutor(
                                                 AsyncTask.THREAD_POOL_EXECUTOR,
                                                 (String) null);
-                                    } else {
-                                        new InsertBeforePayemnt().execute((String) null);
-                                    }
-                                }
-                                else{*/
-                                    // TrackId Failed to Generate.
-                                    is_member_details=true;
-                                    if(Utils.isOnline(MakeMyPayment_Atom.this)){
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                            getpaymentgatewaysdetails = new PaymentGateWayDetails();
-                                            getpaymentgatewaysdetails.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-
-                                        } else {
-
-                                            getpaymentgatewaysdetails = new PaymentGateWayDetails();
-                                            getpaymentgatewaysdetails.execute((String) null);
-                                        }
-                                    }
-                               // }
-                            }
-                            else{
-                                Toast.makeText(MakeMyPayment_Atom.this,
-                                        getString(R.string.app_please_wait_label),
-                                        Toast.LENGTH_LONG).show();
-
-
-                            }
-
-
-                        } else {
-                            Toast.makeText(MakeMyPayment_Atom.this,
-                                    "Please accept the terms and condition",
-                                    Toast.LENGTH_LONG).show();
-                            return;
-
-                        }
-
-                    } else {
-                        if(is_activity_running)
-                            AlertsBoxFactory
-                                    .showAlert(
-                                            "Due to some data mismatch we are unable to process your request\n Please contact admin",
-                                            MakeMyPayment_Atom.this);
-                    }
-                }
-                catch (Exception e) {
-                    // TODO: handle exception
-                    if(is_activity_running)
-                        AlertsBoxFactory
-                                .showAlert(
-                                        "Due to some data mismatch we are unable to process your request\n Please contact admin",
-                                        MakeMyPayment_Atom.this);
-                }
-
-
-
-             /*   try {
-                    if (Double.parseDouble(txtnewamount.getText().toString()) > 0) {
-                        if (terms.isChecked() == true
-                                && privacy.isChecked() == true) {
-
-                            *//*if(Utils.isOnline(MakeMyPayment_Atom.this)){
-                                TrackId = adjTrackval;
-                                if(Utils.isOnline(MakeMyPayment_Atom.this)){
-
-
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                        insertBeforeWithTrackId = new InsertBeforeWithTrackId();
-                                        insertBeforeWithTrackId.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-                                    } else {
-                                        insertBeforeWithTrackId = new InsertBeforeWithTrackId();
-                                        insertBeforeWithTrackId.execute((String) null);
-                                    }
-                                }
-                            }
-                            else{
-                                Toast.makeText(MakeMyPayment_Atom.this,
-                                        getString(R.string.app_please_wait_label),
-                                        Toast.LENGTH_LONG).show();
-                            }*//*
-                         if (Utils.isOnline(MakeMyPayment_Atom.this)) {
-                                if (trackid_check) {
-                                    is_member_details = false;
-                                    // TrackId Generated Successfully.
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                        new InsertBeforePayemnt().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
                                     } else {
                                         new InsertBeforePayemnt().execute((String) null);
                                     }
@@ -246,7 +161,9 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                                             getpaymentgatewaysdetails = new PaymentGateWayDetails();
                                             getpaymentgatewaysdetails.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+
                                         } else {
+
                                             getpaymentgatewaysdetails = new PaymentGateWayDetails();
                                             getpaymentgatewaysdetails.execute((String) null);
                                         }
@@ -256,7 +173,11 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                                 Toast.makeText(MakeMyPayment_Atom.this,
                                         getString(R.string.app_please_wait_label),
                                         Toast.LENGTH_LONG).show();
+
+
                             }
+
+
                         } else {
                             Toast.makeText(MakeMyPayment_Atom.this,
                                     "Please accept the terms and condition",
@@ -279,8 +200,8 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                                 .showAlert(
                                         "Due to some data mismatch we are unable to process your request\n Please contact admin",
                                         MakeMyPayment_Atom.this);
+
                 }
-*/
             }
         });
 
@@ -459,22 +380,6 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
             }
 
 
-/*
-			if (Utils.isOnline(MakeMyPayment_EBS.this)) {
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-					getpaymentgatewaysdetails = new PaymentGateWayDetails();
-					getpaymentgatewaysdetails.executeOnExecutor(
-							AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-
-				} else {
-					getpaymentgatewaysdetails = new PaymentGateWayDetails();
-					getpaymentgatewaysdetails.execute((String) null);
-				}
-			} else {
-				if (is_activity_running)
-					AlertsBoxFactory.showAlert("Please connect to internet !!", MakeMyPayment_EBS.this);
-			}*/
-
             payNowView.setVisibility(View.VISIBLE);
             responseScrollLayout.setVisibility(View.GONE);
         } else {
@@ -528,6 +433,7 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                 paymentsObj.setServiceTax(ServiceTax);
                 paymentsObj.setDiscount_Amount(additionalAmount.getDiscountAmount());
                 paymentsObj.setBankcode("AT");
+                paymentsObj.setRenewaltype(UpdateFrom);
 
 
                 if(Utils.pg_sms_request){
@@ -912,14 +818,6 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                         customername = memberDetails.getMemberName();
                         Utils.log("customername", ":" + customername);
 
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-							getpaymentgatewaysdetails = new PaymentGateWayDetails();
-							getpaymentgatewaysdetails.executeOnExecutor(
-									AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-						} else {
-							getpaymentgatewaysdetails = new PaymentGateWayDetails();
-							getpaymentgatewaysdetails.execute((String) null);
-						}
                     }
                 } else if (rslt.trim().equalsIgnoreCase("not")) {
                     if (is_activity_running)
@@ -1026,8 +924,6 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
                         .getResources().getString(
                                 R.string.METHOD_GET_TRANSACTIONID_WITH_BANK_NAME), "AT");
                 adjCaller.setMemberId(utils.getMemberId());
-                // adjCaller.setAreaCode(AreaCode);
-                // adjCaller.setAreaCodeFilter(AreaCodeFilter);
                 adjCaller.setTopup_falg(false);
 
                 adjCaller.join();
@@ -1261,60 +1157,5 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
             mProgressHUD.dismiss();
         }
     }
-
-/*
-    public  void showExitAlert(String message, Context ctx){
-        final Dialog dialog = new Dialog(ctx);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //tell the Dialog to use the dialog.xml as it's layout description
-        dialog.setContentView(R.layout.custom_dialog_box);
-			*//*Display display = ((Activity)ctx). getWindowManager().getDefaultDisplay();
-			Point size = new Point();
-			display.getSize(size);*//*
-        int width = 0;
-        int height =0;
-        dialog.setCancelable(false);
-
-        Point size = new Point();
-        WindowManager w =((Activity)ctx).getWindowManager();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            w.getDefaultDisplay().getSize(size);
-            width = size.x;
-            height = size.y;
-        } else {
-            Display d = w.getDefaultDisplay();
-            width = d.getWidth();
-            height   = d.getHeight();;
-        }
-
-        TextView	dtv = (TextView) dialog.findViewById(R.id.tv1);
-
-        TextView txt = (TextView) dialog.findViewById(R.id.tv);
-
-        txt.setText(Html.fromHtml(message));
-
-        Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
-
-
-        dialogButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MakeMyPayment_Atom.this.finish();
-
-					*//*Intent i = new Intent(MakeMyPaymentsAtom.this,IONHome.class);
-					dialog.dismiss();
-					startActivity(i);*//*
-                overridePendingTransition(R.anim.slide_in_left,
-                        R.anim.slide_out_right);
-            }
-        });
-
-        dialog.show();
-        //(width/2)+((width/2)/2)
-        //dialog.getWindow().setLayout((width/2)+((width/2)/2), height/2);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().setLayout((width/2)+(width/2)/2, LayoutParams.WRAP_CONTENT);
-    }*/
 
 }

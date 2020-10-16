@@ -106,6 +106,12 @@ public class BeforeInsertPaymentSOAP {
 		request.addProperty(pi);
 
 		pi = new PropertyInfo();
+		pi.setName("RenewalType");
+		pi.setValue(getPaymentdata().getRenewaltype());
+		pi.setType(String.class);
+		request.addProperty(pi);
+
+		pi = new PropertyInfo();
 		pi.setName(AuthenticationMobile.CliectAccessName);
 		pi.setValue(AuthenticationMobile.CliectAccessId);
 		pi.setType(String.class);

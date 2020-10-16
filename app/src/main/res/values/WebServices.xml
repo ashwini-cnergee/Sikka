@@ -11,8 +11,8 @@
     <string name="WSDL_TARGET_NAMESPACE">http://tempuri.org/</string>
 
     <string name="SOAP_URL">http://150.129.48.28:8005/CCRMToMobileIntegration.asmx?wsdl</string>
-   <!-- <string name="SOAP_URL">http://103.54.183.98:8008/CCRMToMobileIntegration.asmx?wsdl</string>
--->
+   <!-- <string name="SOAP_URL">http://103.54.183.98:8008/CCRMToMobileIntegration.asmx?wsdl</string>-->
+
     <string name="METHOD_GET_MEMBER_INFO">GetMemberInfo</string>
     <string name="METHOD_GET_LOGIN_BY_NUMBER">GetLoginByNumber</string>
     <string name="METHOD_GET_LOGIN_BY_MEMBERID">GetLoginByMemberId</string>

@@ -35,6 +35,7 @@ public class PaymentsObj implements Serializable {
 
 	private String update_from;
 	private String pg_sms_unique_id;
+	private String renewaltype;
 
 
 	public long getMemberId() {
@@ -215,4 +216,12 @@ public class PaymentsObj implements Serializable {
 	public void setPg_res_code(String pg_res_code) {
 		this.pg_res_code = pg_res_code;
 	}
+
+    public void setRenewaltype(String renewaltype) {
+        this.renewaltype = renewaltype;
+    }
+
+    public String getRenewaltype() {
+        return renewaltype;
+    }
 }

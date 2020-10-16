@@ -1450,6 +1450,7 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
                 paymentsObj.setPackageName(txtnewpackagename.getText().toString());
                 paymentsObj.setServiceTax(ServiceTax);
                 paymentsObj.setDiscount_Amount(additionalAmount.getDiscountAmount());
+                paymentsObj.setRenewaltype(UpdateFrom);
                 if (Utils.pg_sms_request) {
                     if (Utils.pg_sms_uniqueid.length() > 0) {
                         paymentsObj.setPg_sms_unique_id(Utils.pg_sms_uniqueid);
