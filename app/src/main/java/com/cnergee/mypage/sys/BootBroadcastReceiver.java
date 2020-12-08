@@ -1,6 +1,6 @@
 package com.cnergee.mypage.sys;
 
-import java.util.Calendar;
+/*import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import android.app.AlarmManager;
@@ -31,7 +31,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 		
 		
 		PendingIntent pintent2 = PendingIntent.getBroadcast(context, 0, intentService2, 0);
-		/*Calendar calendar = Calendar.getInstance();
+		*//*Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, 8);
 		calendar.set(Calendar.MINUTE, 05);
 		calendar.set(Calendar.SECOND, 00);
@@ -42,7 +42,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 		// Start every 1mon..
 	//	alarm2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, pintent2);
 		alarm2.cancel(pintent2);
-		alarm2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent2);*/
+		alarm2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent2);*//*
 		
 		AlarmManager alarm2 = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 		
@@ -66,4 +66,4 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 	                    AlarmManager.INTERVAL_DAY, pintent2);
 	}
 
-}
+}*/

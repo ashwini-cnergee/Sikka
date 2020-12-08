@@ -50,7 +50,7 @@ import com.cnergee.mypage.SOAP.GetCurrentVersionSOAP;
 import com.cnergee.mypage.SOAP.PAckageDetailSOAP;
 import com.cnergee.mypage.SOAP.UpdatePhoneDetailSOAP;
 import com.cnergee.mypage.obj.PackageDetails;
-import com.cnergee.mypage.sys.AlarmBroadcastReceiver;
+//import com.cnergee.mypage.sys.AlarmBroadcastReceiver;
 import com.cnergee.mypage.sys.ExpiryBroadcastReceiver;
 import com.cnergee.mypage.utils.AlertsBoxFactory;
 import com.cnergee.mypage.utils.FinishEvent;
@@ -770,13 +770,13 @@ public class IONHome extends Activity implements OnClickListener {
 				.getSharedPreferences(context.getString(R.string.shared_preferences_name), 0);
 		String gcm_id = sharedPreferences_gcm.getString("Gcm_reg_id", "");
 
-		AlarmManager alarm1 = (AlarmManager) context
+		/*AlarmManager alarm1 = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
-		Intent intentService1 = new Intent(IONHome.this,
-				AlarmBroadcastReceiver.class);
+		*//*Intent intentService1 = new Intent(IONHome.this,
+				AlarmBroadcastReceiver.class);*//*
 
-		PendingIntent pintent1 = PendingIntent.getBroadcast(context, 0,
-				intentService1, 0);
+		*//*PendingIntent pintent1 = PendingIntent.getBroadcast(context, 0,
+				intentService1, 0);*//*
 		if (gcm_id.length() == 0 || gcm_id.equalsIgnoreCase("NO")) {
 			Log.d("Alarm has", "Started");
 			Calendar cal = Calendar.getInstance();
@@ -792,7 +792,7 @@ public class IONHome extends Activity implements OnClickListener {
 		} else {
 			Log.d("Alarm has", "cancelled");
 			alarm1.cancel(pintent1);
-		}
+		}*/
 	}
 
 

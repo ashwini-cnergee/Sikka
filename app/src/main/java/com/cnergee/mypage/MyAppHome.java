@@ -40,7 +40,7 @@ import android.widget.Toast;
 import com.cnergee.mypage.SOAP.GetCurrentVersionSOAP;
 import com.cnergee.mypage.SOAP.PAckageDetailSOAP;
 import com.cnergee.mypage.obj.PackageDetails;
-import com.cnergee.mypage.sys.AlarmBroadcastReceiver;
+//import com.cnergee.mypage.sys.AlarmBroadcastReceiver;
 import com.cnergee.mypage.sys.ExpiryBroadcastReceiver;
 import com.cnergee.mypage.utils.AlertsBoxFactory;
 import com.cnergee.mypage.utils.FinishEvent;
@@ -640,7 +640,7 @@ public class MyAppHome extends Activity implements OnClickListener  {
 		 * 60000*2, pintent);
 		 */
 
-		// ***********************
+		/*// ***********************
 		Intent intentService1 = new Intent(MyAppHome.this,
 				AlarmBroadcastReceiver.class);
 
@@ -656,7 +656,7 @@ public class MyAppHome extends Activity implements OnClickListener  {
 		alarm1.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
 				60000 * 2, pintent1);
 		// ********************************
-		check_call=false;
+		check_call=false;*/
 	}
 
 	

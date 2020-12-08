@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-public class AlarmBroadcastReceiver extends BroadcastReceiver {
+/*public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -24,4 +24,4 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
 
 	 }
- }
+ }*/

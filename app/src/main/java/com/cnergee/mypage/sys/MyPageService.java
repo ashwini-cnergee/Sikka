@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import cnergee.sikka.broadband.R;
 
+/*
 public class MyPageService extends Service{
 	
 	public static Context context;
@@ -53,14 +54,16 @@ public class MyPageService extends Service{
        // complaintList = null;
        // Authobj = null;
     }
-   /* @Override
+   */
+/* @Override
     public void onStart(Intent intent, int startId) {
         // TODO Auto-generated method stub
         super.onStart(intent, startId);
         Toast.makeText(this, "ServiceClass.onStart()", Toast.LENGTH_LONG).show();
         Utils.log("Testing", "Service got started");
     }
-*/
+*//*
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -68,7 +71,9 @@ public class MyPageService extends Service{
         
       		
       //  Utils.log(TAG, TAG + ": Cnergee Service Started "+utils.getMemberId());
-        /*Utils.log(TAG, TAG + ": IS NET CONNECT  "+utils.isOnline(context));*/
+        */
+/*Utils.log(TAG, TAG + ": IS NET CONNECT  "+utils.isOnline(context));*//*
+
         
         if(Utils.isOnline(context)){
 	      //  complaintListWebService.execute((String)null);
@@ -99,6 +104,7 @@ public class MyPageService extends Service{
     }
 
 
+*/
 /*    private void doSomething() {
      
         Random rand = new Random();
@@ -165,8 +171,10 @@ public class MyPageService extends Service{
 			 }
 		       
 		}
-    }*/
+    }*//*
+
     
+*/
 /*private void updateStatus(String NotifyId){
     	
     	//Log.i("*********** STATUS CHANGE... ",""+complID);
@@ -194,7 +202,9 @@ public class MyPageService extends Service{
 		}
     	
     	
-    }*/
+    }*//*
+
     
   
 }
+*/
