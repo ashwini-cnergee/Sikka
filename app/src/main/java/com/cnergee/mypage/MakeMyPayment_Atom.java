@@ -879,35 +879,42 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
 
             if (is_activity_running) mProgressHUD.dismiss();
             getpaymentgatewaysdetails = null;
-
-            if (rslt.trim().equalsIgnoreCase("ok")) {
-                try {
-                    TrackId = adjTrackval;
-                    trackid_check = true;
-                    Utils.log("TrackId", ":" + TrackId);
-
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            new InsertBeforePayemnt().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-                        } else {
-                            new InsertBeforePayemnt().execute((String) null);
-                        }
-
-
-
-                    Utils.log("trackid_check", ":" + trackid_check);
-                    if (is_member_details) {
-
-                    }
-                } catch (NumberFormatException nue) {
-                    RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioPayMode);
-                    radioGroup.clearCheck();
-                    // Log.i(">>>>>New PLan Rate<<<<<<", adjTrackval);
-                }
+            if (rslt.trim().equalsIgnoreCase("null") || rslt.equals(null)) {
+                AlertsBoxFactory.showAlert("Something went wrong. Please try Again !!!", MakeMyPayment_Atom.this);
 
             } else {
-                if (is_activity_running)
-                    iError.display();
+                if (rslt.trim().equalsIgnoreCase("ok")) {
+                    try {
+                        TrackId = adjTrackval;
+                        trackid_check = true;
+                        Utils.log("TrackId", ":" + TrackId);
+                        if (TrackId.equalsIgnoreCase("null") || TrackId.equals(null)) {
+                            AlertsBoxFactory.showAlert("Something went wrong. Please try Again !!!", MakeMyPayment_Atom.this);
+
+                        } else {
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                                new InsertBeforePayemnt().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+                            } else {
+                                new InsertBeforePayemnt().execute((String) null);
+                            }
+
+
+                            Utils.log("trackid_check", ":" + trackid_check);
+                            if (is_member_details) {
+
+                            }
+                        }
+                    } catch (NumberFormatException nue) {
+                        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioPayMode);
+                        radioGroup.clearCheck();
+                        // Log.i(">>>>>New PLan Rate<<<<<<", adjTrackval);
+                    }
+
+                } else {
+                    if (is_activity_running)
+                        iError.display();
+                }
             }
             this.cancel(true);
         }
@@ -981,25 +988,29 @@ public class MakeMyPayment_Atom extends BaseActivity implements OnCancelListener
 
         protected void onPostExecute(Void unused) {
             if (is_activity_running)
-           mProgressHUD.dismiss();
+                mProgressHUD.dismiss();
             Utils.log("3 Progress", "end");
             Utils.log("Response", ":" + rslt);
             // submit.setClickable(true);
             InsertBeforePayemnt = null;
-
-            if (rslt.trim().equalsIgnoreCase("ok")) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    new Get_Atom_Signature().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-                } else {
-                    new Get_Atom_Signature().execute();
-                }
+            if (rslt.trim().equalsIgnoreCase("null") || rslt.equals(null)) {
+                AlertsBoxFactory.showAlert("Something went wrong. Please try Again !!!", MakeMyPayment_Atom.this);
 
             } else {
-                if (is_activity_running)
-                    AlertsBoxFactory.showAlert(rslt, context);
-                return;
+                if (rslt.trim().equalsIgnoreCase("ok")) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        new Get_Atom_Signature().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+                    } else {
+                        new Get_Atom_Signature().execute();
+                    }
+                } else {
+                    if (is_activity_running)
+                        AlertsBoxFactory.showAlert(rslt, context);
+                    return;
+                }
             }
+
         }
 
         @Override

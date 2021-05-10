@@ -587,30 +587,40 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
         protected void onPostExecute(Void aVoid) {
 
 
-            if(is_activity_running)
+            if (is_activity_running)
                 mProgressHUD.dismiss();
             insertBeforeWithTrackId = null;
-
-            if (rslt.trim().equalsIgnoreCase("ok")) {
-
-                Log.e("RESPONSE TRACKID",":"+ MakeMyPayments_CCAvenue.responseMsg);
-                TrackId = adjTrackval;
-
-                if(TrackId!=null && TrackId.length()>0 && !TrackId.equalsIgnoreCase("null") ) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        new Get_SubPaisa_Signature().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-                    } else {
-                        new Get_SubPaisa_Signature().execute();
-                    }
-
-                }else{
-                    AlertsBoxFactory.showAlert("TrackId not generated. Please try Again !!!", MakePaymentSubpaisa.this);
-                }
+            if (rslt.trim().equalsIgnoreCase("null") || rslt.equals(null)) {
+                AlertsBoxFactory.showAlert("Something went wrong. Please try Again !!!", MakePaymentSubpaisa.this);
 
             } else {
-                if(is_activity_running)
-                    AlertsBoxFactory.showAlert(rslt, context);
-                return;
+                if (rslt.trim().equalsIgnoreCase("ok")) {
+
+                    Log.e("RESPONSE TRACKID", ":" + MakeMyPayments_CCAvenue.responseMsg);
+
+                    TrackId = adjTrackval;
+                    if (TrackId.equals("null") || TrackId.equals(null)) {
+                        AlertsBoxFactory.showAlert("Something went wrong. Please try Again !!!", MakePaymentSubpaisa.this);
+
+                    } else {
+
+                        if (TrackId != null && TrackId.length() > 0 && !TrackId.equalsIgnoreCase("null")) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                                new Get_SubPaisa_Signature().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+                            } else {
+                                new Get_SubPaisa_Signature().execute();
+                            }
+
+                        } else {
+                            AlertsBoxFactory.showAlert("TrackId not generated. Please try Again !!!", MakePaymentSubpaisa.this);
+                        }
+
+                    }
+                } else {
+                    if (is_activity_running)
+                        AlertsBoxFactory.showAlert(rslt, context);
+                    return;
+                }
             }
         }
     }
@@ -1415,13 +1425,18 @@ public class MakePaymentSubpaisa extends BaseActivity implements SabPaisaPG {
             Utils.log("Response", ":" + rslt);
             // submit.setClickable(true);
             InsertBeforePayemnt = null;
+            if (rslt.trim().equalsIgnoreCase("null") || rslt.equals(null)) {
+                AlertsBoxFactory.showAlert("Something went wrong. Please try Again !!!", MakePaymentSubpaisa.this);
 
+            } else
             if (rslt.trim().equalsIgnoreCase("ok")) {
+                 {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    new Get_SubPaisa_Signature().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
-                } else {
-                    new Get_SubPaisa_Signature().execute();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        new Get_SubPaisa_Signature().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String) null);
+                    } else {
+                        new Get_SubPaisa_Signature().execute();
+                    }
                 }
 
             } else {
